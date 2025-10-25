@@ -248,46 +248,50 @@ class _GooglePlaceAutoCompleteTextFieldState
       RenderBox renderBox = context.findRenderObject() as RenderBox;
       var size = renderBox.size;
       var offset = renderBox.localToGlobal(Offset.zero);
-      return OverlayEntry(
-          builder: (context) => Positioned(
-                left: offset.dx,
-                top: size.height + offset.dy,
-                width: size.width,
-                child: CompositedTransformFollower(
-                  showWhenUnlinked: false,
-                  link: this._layerLink,
-                  offset: Offset(0.0, size.height + 5.0),
-                  child: Material(
-                      child: ListView.separated(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: alPredictions.length,
-                    separatorBuilder: (context, pos) =>
-                        widget.seperatedBuilder ?? SizedBox(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () async {
-                          var selectedData = alPredictions[index];
-                          if (index < alPredictions.length) {
-                            widget.itemClick!(selectedData);
+      return widget.textEditingController.text.isEmpty
+          ? null
+          : OverlayEntry(
+              builder: (context) => Positioned(
+                    left: offset.dx,
+                    top: size.height + offset.dy,
+                    width: size.width,
+                    child: CompositedTransformFollower(
+                      showWhenUnlinked: false,
+                      link: this._layerLink,
+                      offset: Offset(0.0, size.height + 5.0),
+                      child: Material(
+                          child: ListView.separated(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: alPredictions.length,
+                        separatorBuilder: (context, pos) =>
+                            widget.seperatedBuilder ?? SizedBox(),
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () async {
+                              var selectedData = alPredictions[index];
+                              if (index < alPredictions.length) {
+                                widget.itemClick!(selectedData);
 
-                            if (widget.isLatLngRequired) {
-                              await getPlaceDetailsFromPlaceId(selectedData);
-                            }
-                            removeOverlay();
-                          }
+                                if (widget.isLatLngRequired) {
+                                  await getPlaceDetailsFromPlaceId(
+                                      selectedData);
+                                }
+                                removeOverlay();
+                              }
+                            },
+                            child: widget.itemBuilder != null
+                                ? widget.itemBuilder!(
+                                    context, index, alPredictions[index])
+                                : Container(
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                        alPredictions[index].description!)),
+                          );
                         },
-                        child: widget.itemBuilder != null
-                            ? widget.itemBuilder!(
-                                context, index, alPredictions[index])
-                            : Container(
-                                padding: EdgeInsets.all(10),
-                                child: Text(alPredictions[index].description!)),
-                      );
-                    },
-                  )),
-                ),
-              ));
+                      )),
+                    ),
+                  ));
     }
     return null;
   }
