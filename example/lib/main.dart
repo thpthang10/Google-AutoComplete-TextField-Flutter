@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
@@ -5,21 +7,21 @@ import 'package:google_places_flutter/model/prediction.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(title: 'Custom Autocomplete sample'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
+  const MyHomePage({super.key, this.title});
 
   final String? title;
 
@@ -81,13 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
         countries: ["in", "fr"],
         isLatLngRequired: true,
         getPlaceDetailWithLatLng: (Prediction prediction) {
-          print("placeDetails" + prediction.lat.toString());
+          debugPrint("placeDetails${prediction.lat}");
         },
 
         itemClick: (Prediction prediction) {
           controller.text = prediction.description ?? "";
           controller.selection = TextSelection.fromPosition(
-              TextPosition(offset: prediction.description?.length ?? 0));
+            TextPosition(offset: prediction.description?.length ?? 0),
+          );
         },
         seperatedBuilder: Divider(),
         containerHorizontalPadding: 10,
@@ -102,10 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(
               children: [
                 Icon(Icons.location_on),
-                SizedBox(
-                  width: 7,
-                ),
-                Expanded(child: Text("${prediction.description ?? ""}"))
+                SizedBox(width: 7),
+                Expanded(child: Text(prediction.description ?? "")),
               ],
             ),
           );
