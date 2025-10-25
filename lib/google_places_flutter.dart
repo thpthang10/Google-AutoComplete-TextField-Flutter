@@ -371,37 +371,37 @@ class _GooglePlaceAutoCompleteTextFieldState
   InputDecoration defaultInputDecoration() {
     return InputDecoration(
       filled: true,
-      fillColor: AppColors.greyTextField,
+      fillColor: AppColorsG.greyTextField,
       hintText: 'Search...',
-      hintStyle: AppTextStyle.normalStyle.copyWith(
+      hintStyle: AppTextStyleG.normalStyle.copyWith(
         fontWeight: FontWeight.normal,
-        color: AppColors.greyHintText,
+        color: AppColorsG.greyHintText,
       ),
       enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.greyTextField),
+        borderSide: BorderSide(color: AppColorsG.greyTextField),
       ),
-      contentPadding: const EdgeInsets.only(right: Dimens.PADDING_LARGE),
+      contentPadding: const EdgeInsets.only(right: DimensG.PADDING_LARGE),
       prefixIconConstraints: const BoxConstraints(
-        minHeight: Dimens.IC_CLOSE_APPBAR,
-        minWidth: Dimens.IC_CLOSE_APPBAR,
+        minHeight: DimensG.IC_CLOSE_APPBAR,
+        minWidth: DimensG.IC_CLOSE_APPBAR,
       ),
       prefixIcon: Padding(
-        padding: const EdgeInsets.all(Dimens.PADDING_SMALL),
-        child: SvgPicture.asset(Images.icSearch),
+        padding: const EdgeInsets.all(DimensG.PADDING_SMALL),
+        child: SvgPicture.asset(ImagesG.icSearch),
       ),
       suffixIconConstraints: const BoxConstraints(
-        minHeight: Dimens.IC_CLOSE_APPBAR,
-        minWidth: Dimens.IC_CLOSE_APPBAR,
+        minHeight: DimensG.IC_CLOSE_APPBAR,
+        minWidth: DimensG.IC_CLOSE_APPBAR,
       ),
       suffixIcon: widget.textEditingController.text.isEmpty
           ? GestureDetector(
               onTap: () => widget.onPressedLatLng?.call(),
               child: Padding(
-                padding: const EdgeInsets.all(Dimens.PADDING_SMALL),
+                padding: const EdgeInsets.all(DimensG.PADDING_SMALL),
                 child: SvgPicture.asset(
-                  Images.icLocationSetting,
+                  ImagesG.icLocationSetting,
                   colorFilter: ColorFilter.mode(
-                    AppColors.greyCloseIcon,
+                    AppColorsG.greyCloseIcon,
                     BlendMode.srcIn,
                   ),
                 ),
@@ -413,34 +413,34 @@ class _GooglePlaceAutoCompleteTextFieldState
                 clearData();
               },
               child: Padding(
-                padding: const EdgeInsets.all(Dimens.PADDING_SMALL),
+                padding: const EdgeInsets.all(DimensG.PADDING_SMALL),
                 child: SvgPicture.asset(
-                  Images.icCloseSearchBar,
+                  ImagesG.icCloseSearchBar,
                   colorFilter: ColorFilter.mode(
-                    AppColors.greyCloseIcon,
+                    AppColorsG.greyCloseIcon,
                     BlendMode.srcIn,
                   ),
                 ),
               ),
             ),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.greyTextField),
+        borderSide: BorderSide(color: AppColorsG.greyTextField),
       ),
     );
   }
 }
 
-class AppTextStyle {
-  AppTextStyle._();
+class AppTextStyleG {
+  AppTextStyleG._();
 
   static TextStyle normalStyle = const TextStyle(
       fontWeight: FontWeight.w400,
-      color: AppColors.blueText,
-      fontSize: Dimens.TEXT_SIZE_NORMAL);
+      color: AppColorsG.blueText,
+      fontSize: DimensG.TEXT_SIZE_NORMAL);
 }
 
-class Images {
-  Images._();
+class ImagesG {
+  ImagesG._();
 
   static const String iconPath = 'lib/res/icons';
 
@@ -449,8 +449,8 @@ class Images {
   static const icSearch = '$iconPath/ic_search.svg';
 }
 
-class AppColors {
-  AppColors._();
+class AppColorsG {
+  AppColorsG._();
 
   static const greyTextField = Color(0xffF7F8FB);
   static const greyCloseIcon = Color(0xff7B7C81);
@@ -458,8 +458,8 @@ class AppColors {
   static const blueText = Color(0xff3D4257);
 }
 
-class Dimens {
-  Dimens._();
+class DimensG {
+  DimensG._();
 
   static const PADDING_SMALL = 10.0;
   static const IC_CLOSE_APPBAR = 16.0;
