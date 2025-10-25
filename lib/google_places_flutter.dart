@@ -249,7 +249,7 @@ class _GooglePlaceAutoCompleteTextFieldState
       var size = renderBox.size;
       var offset = renderBox.localToGlobal(Offset.zero);
       return widget.textEditingController.text.isEmpty
-          ? null
+          ? OverlayEntry(builder: (_) => const SizedBox())
           : OverlayEntry(
               builder: (context) => Positioned(
                     left: offset.dx,
