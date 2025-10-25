@@ -35,18 +35,21 @@ class Prediction {
   List<String>? types;
   String? lat;
   String? lng;
+  dynamic placeDetailJson;
 
-  Prediction(
-      {this.description,
-      this.id,
-      this.matchedSubstrings,
-      this.placeId,
-      this.reference,
-      this.structuredFormatting,
-      this.terms,
-      this.types,
-      this.lat,
-      this.lng});
+  Prediction({
+    this.description,
+    this.id,
+    this.matchedSubstrings,
+    this.placeId,
+    this.reference,
+    this.structuredFormatting,
+    this.terms,
+    this.types,
+    this.lat,
+    this.lng,
+    this.placeDetailJson,
+  });
 
   Prediction.fromJson(Map<String, dynamic> json) {
     description = json['description'];
@@ -63,7 +66,7 @@ class Prediction {
         ? new StructuredFormatting.fromJson(json['structured_formatting'])
         : null;
     if (json['terms'] != null) {
-      terms =[];
+      terms = [];
       json['terms'].forEach((v) {
         terms!.add(new Terms.fromJson(v));
       });
@@ -71,6 +74,7 @@ class Prediction {
     types = json['types'].cast<String>();
     lat = json['lat'];
     lng = json['lng'];
+    placeDetailJson = json['placeDetailJson'];
   }
 
   Map<String, dynamic> toJson() {
@@ -92,6 +96,7 @@ class Prediction {
     data['types'] = this.types;
     data['lat'] = this.lat;
     data['lng'] = this.lng;
+    data['placeDetailJson'] = this.placeDetailJson;
 
     return data;
   }

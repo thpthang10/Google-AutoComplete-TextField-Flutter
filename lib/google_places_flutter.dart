@@ -315,6 +315,9 @@ class _GooglePlaceAutoCompleteTextFieldState
       prediction.lat = placeDetails.result!.geometry!.location!.lat.toString();
       prediction.lng = placeDetails.result!.geometry!.location!.lng.toString();
 
+      //
+      prediction.placeDetailJson = response.data;
+
       widget.getPlaceDetailWithLatLng!(prediction);
     } catch (e) {
       var errorHandler = ErrorHandler.internal().handleError(e);
