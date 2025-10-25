@@ -1,5 +1,7 @@
 library google_places_flutter;
 
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/model/place_details.dart';
@@ -44,6 +46,7 @@ class GooglePlaceAutoCompleteTextField extends StatefulWidget {
 
   /// This is expressed in **meters**
   final int? radius;
+  final Function? onChanged;
 
   GooglePlaceAutoCompleteTextField(
       {required this.textEditingController,
@@ -72,7 +75,8 @@ class GooglePlaceAutoCompleteTextField extends StatefulWidget {
       this.formSubmitCallback,
       this.textInputAction,
       this.keyboardType,
-      this.clearData});
+      this.clearData,
+      this.onChanged});
 
   @override
   _GooglePlaceAutoCompleteTextFieldState createState() =>
@@ -118,19 +122,20 @@ class _GooglePlaceAutoCompleteTextFieldState
                 style: widget.textStyle,
                 controller: widget.textEditingController,
                 focusNode: widget.focusNode ?? FocusNode(),
-                keyboardType: widget.keyboardType ?? TextInputType.streetAddress,
+                keyboardType:
+                    widget.keyboardType ?? TextInputType.streetAddress,
                 textInputAction: widget.textInputAction ?? TextInputAction.done,
                 onFieldSubmitted: (value) {
-                  if(widget.formSubmitCallback!=null){
+                  if (widget.formSubmitCallback != null) {
                     widget.formSubmitCallback!();
                   }
-
                 },
                 validator: (inputString) {
                   return widget.validator?.call(inputString, context);
                 },
                 onChanged: (string) {
                   subject.add(string);
+                  widget.onChanged?.call(string);
                   if (widget.isCrossBtnShown) {
                     isCrossBtn = string.isNotEmpty ? true : false;
                     setState(() {});
@@ -268,7 +273,7 @@ class _GooglePlaceAutoCompleteTextFieldState
                             widget.itemClick!(selectedData);
 
                             if (widget.isLatLngRequired) {
-                             await getPlaceDetailsFromPlaceId(selectedData);
+                              await getPlaceDetailsFromPlaceId(selectedData);
                             }
                             removeOverlay();
                           }
