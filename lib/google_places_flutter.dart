@@ -14,7 +14,7 @@ import 'DioErrorHandler.dart';
 
 // ignore: must_be_immutable
 class GooglePlaceAutoCompleteTextField extends StatefulWidget {
-  InputDecoration inputDecoration;
+  InputDecoration? inputDecoration;
   ItemClick? itemClick;
   GetPlaceDetailswWithLatLng? getPlaceDetailWithLatLng;
   bool isLatLngRequired = true;
@@ -54,7 +54,7 @@ class GooglePlaceAutoCompleteTextField extends StatefulWidget {
       {required this.textEditingController,
       required this.googleAPIKey,
       this.debounceTime = 600,
-      this.inputDecoration = const InputDecoration(),
+      this.inputDecoration,
       this.itemClick,
       this.isLatLngRequired = true,
       this.textStyle = const TextStyle(),
