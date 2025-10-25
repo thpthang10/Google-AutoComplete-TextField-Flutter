@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>5EB6EF8F-49A7-4364-BA2F-0BB5E8E956C0</title>
+    <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="People---Names" transform="translate(-32.000000, -100.000000)">
+            <g id="Search" transform="translate(20.000000, 92.000000)">
+                <g id="ic/24/card/sort-copy" transform="translate(12.000000, 8.000000)">
+                    <g id="ic/24/search" transform="translate(12.000000, 12.000000) rotate(-360.000000) translate(-12.000000, -12.000000) ">
+                        <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                        <path d="M11,4.25 C14.7342136,4.25 17.75,7.26578644 17.75,11 C17.75,12.5959965 17.1991084,14.0607584 16.276686,15.214925 L19.9445436,18.8838835 L18.8838835,19.9445436 L15.214925,16.276686 C14.0607584,17.1991084 12.5959965,17.75 11,17.75 C7.26578644,17.75 4.25,14.7342136 4.25,11 C4.25,7.26578644 7.26578644,4.25 11,4.25 Z M11,5.75 C8.09421356,5.75 5.75,8.09421356 5.75,11 C5.75,13.9057864 8.09421356,16.25 11,16.25 C13.9057864,16.25 16.25,13.9057864 16.25,11 C16.25,8.09421356 13.9057864,5.75 11,5.75 Z" id="Combined-Shape" fill="#8A93A7" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -2,6 +2,7 @@ library google_places_flutter;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_places_flutter/model/place_details.dart';
 import 'package:google_places_flutter/model/place_type.dart';
 import 'package:google_places_flutter/model/prediction.dart';
@@ -46,6 +47,8 @@ class GooglePlaceAutoCompleteTextField extends StatefulWidget {
   /// This is expressed in **meters**
   final int? radius;
   final Function? onChanged;
+  final Function? onPressedLatLng;
+  final Function? onPressedClose;
 
   GooglePlaceAutoCompleteTextField(
       {required this.textEditingController,
@@ -75,7 +78,9 @@ class GooglePlaceAutoCompleteTextField extends StatefulWidget {
       this.textInputAction,
       this.keyboardType,
       this.clearData,
-      this.onChanged});
+      this.onChanged,
+      this.onPressedLatLng,
+      this.onPressedClose});
 
   @override
   _GooglePlaceAutoCompleteTextFieldState createState() =>
@@ -117,7 +122,7 @@ class _GooglePlaceAutoCompleteTextFieldState
           children: [
             Expanded(
               child: TextFormField(
-                decoration: widget.inputDecoration,
+                decoration: widget.inputDecoration ?? defaultInputDecoration(),
                 style: widget.textStyle,
                 controller: widget.textEditingController,
                 focusNode: widget.focusNode ?? FocusNode(),
@@ -362,6 +367,104 @@ class _GooglePlaceAutoCompleteTextFieldState
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
+
+  InputDecoration defaultInputDecoration() {
+    return InputDecoration(
+      filled: true,
+      fillColor: AppColors.greyTextField,
+      hintText: 'Search...',
+      hintStyle: AppTextStyle.normalStyle.copyWith(
+        fontWeight: FontWeight.normal,
+        color: AppColors.greyHintText,
+      ),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.greyTextField),
+      ),
+      contentPadding: const EdgeInsets.only(right: Dimens.PADDING_LARGE),
+      prefixIconConstraints: const BoxConstraints(
+        minHeight: Dimens.IC_CLOSE_APPBAR,
+        minWidth: Dimens.IC_CLOSE_APPBAR,
+      ),
+      prefixIcon: Padding(
+        padding: const EdgeInsets.all(Dimens.PADDING_SMALL),
+        child: SvgPicture.asset(Images.icSearch),
+      ),
+      suffixIconConstraints: const BoxConstraints(
+        minHeight: Dimens.IC_CLOSE_APPBAR,
+        minWidth: Dimens.IC_CLOSE_APPBAR,
+      ),
+      suffixIcon: widget.textEditingController.text.isEmpty
+          ? GestureDetector(
+              onTap: () => widget.onPressedLatLng?.call(),
+              child: Padding(
+                padding: const EdgeInsets.all(Dimens.PADDING_SMALL),
+                child: SvgPicture.asset(
+                  Images.icLocationSetting,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.greyCloseIcon,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            )
+          : GestureDetector(
+              onTap: () {
+                widget.onPressedClose?.call();
+                clearData();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(Dimens.PADDING_SMALL),
+                child: SvgPicture.asset(
+                  Images.icCloseSearchBar,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.greyCloseIcon,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: AppColors.greyTextField),
+      ),
+    );
+  }
+}
+
+class AppTextStyle {
+  AppTextStyle._();
+
+  static TextStyle normalStyle = const TextStyle(
+      fontWeight: FontWeight.w400,
+      color: AppColors.blueText,
+      fontSize: Dimens.TEXT_SIZE_NORMAL);
+}
+
+class Images {
+  Images._();
+
+  static const String iconPath = 'lib/res/icons';
+
+  static const icCloseSearchBar = '$iconPath/ic_close_search_bar.svg';
+  static const icLocationSetting = '$iconPath/ic_location_setting.svg';
+  static const icSearch = '$iconPath/ic_search.svg';
+}
+
+class AppColors {
+  AppColors._();
+
+  static const greyTextField = Color(0xffF7F8FB);
+  static const greyCloseIcon = Color(0xff7B7C81);
+  static const greyHintText = Color(0xff9FA5B0);
+  static const blueText = Color(0xff3D4257);
+}
+
+class Dimens {
+  Dimens._();
+
+  static const PADDING_SMALL = 10.0;
+  static const IC_CLOSE_APPBAR = 16.0;
+  static const PADDING_LARGE = 20.0;
+  static const TEXT_SIZE_NORMAL = 15.0;
 }
 
 PlacesAutocompleteResponse parseResponse(Map responseBody) {
