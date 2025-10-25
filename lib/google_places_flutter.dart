@@ -1,7 +1,5 @@
 library google_places_flutter;
 
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/model/place_details.dart';
@@ -13,6 +11,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'DioErrorHandler.dart';
 
+// ignore: must_be_immutable
 class GooglePlaceAutoCompleteTextField extends StatefulWidget {
   InputDecoration inputDecoration;
   ItemClick? itemClick;
@@ -290,6 +289,7 @@ class _GooglePlaceAutoCompleteTextFieldState
                 ),
               ));
     }
+    return null;
   }
 
   removeOverlay() {
